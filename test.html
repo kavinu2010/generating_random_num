@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Random Numbers in a Box</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        background-color: #f0f0f0;
+      }
+
+      #box {
+        width: 500px;
+        height: 500px;
+        border: 2px solid #333;
+        position: relative;
+        background-color: white;
+        overflow: hidden;
+      }
+
+      .number {
+        position: absolute;
+        font-size: 14px;
+        color: #000;
+        font-weight: bold;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="box"></div>
+
+    <script>
+      const box = document.getElementById("box");
+      const numbers = [...Array(100).keys()].map((x) => x + 1); // Array of numbers 1 to 100
+      const usedPositions = []; // To avoid overlapping
+
+      // Shuffle the numbers array
+      for (let i = numbers.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [numbers[i], numbers[j]] = [numbers[j], numbers[i]];
+      }
+
+      // Function to check if two boxes overlap
+      function isOverlapping(newX, newY, size = 20) {
+        return usedPositions.some(([x, y]) => {
+          return Math.abs(newX - x) < size && Math.abs(newY - y) < size;
+        });
+      }
+
+      // Place numbers randomly
+      for (let i = 0; i < numbers.length; i++) {
+        let x, y;
+
+        // Ensure the new position doesn't overlap with existing ones
+        do {
+          x = Math.floor(Math.random() * (box.offsetWidth - 30));
+          y = Math.floor(Math.random() * (box.offsetHeight - 30));
+        } while (isOverlapping(x, y));
+
+        usedPositions.push([x, y]); // Save the position
+
+        const numberDiv = document.createElement("div");
+        numberDiv.className = "number";
+        numberDiv.textContent = numbers[i];
+        numberDiv.style.left = `${x}px`;
+        numberDiv.style.top = `${y}px`;
+        box.appendChild(numberDiv);
+      }
+    </script>
+  </body>
+</html>

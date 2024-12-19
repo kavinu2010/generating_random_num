@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Random Numbers in Boxes</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        background-color: #f0f0f0;
+      }
+
+      #container {
+        display: grid;
+        grid-template-columns: repeat(10, 50px); /* 10 columns */
+        grid-gap: 10px;
+        width: fit-content;
+        background-color: #ffffff;
+        padding: 10px;
+        border: 2px solid #333;
+      }
+
+      .box {
+        width: 50px;
+        height: 50px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 16px;
+        font-weight: bold;
+        color: white;
+        background-color: #4caf50;
+        border: 1px solid #333;
+        border-radius: 4px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="container"></div>
+
+    <script>
+      const container = document.getElementById("container");
+
+      // Create an array of numbers from 1 to 100
+      const numbers = [...Array(100).keys()].map((x) => x + 1);
+
+      // Shuffle the numbers randomly using Fisher-Yates algorithm
+      for (let i = numbers.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [numbers[i], numbers[j]] = [numbers[j], numbers[i]];
+      }
+
+      // Fill each box with the shuffled numbers
+      numbers.forEach((num) => {
+        const box = document.createElement("div");
+        box.className = "box";
+        box.textContent = num; // Add the number to the box
+        container.appendChild(box);
+      });
+    </script>
+  </body>
+</html>
