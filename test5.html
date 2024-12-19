@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Display One Number at a Time</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+        background-color: #f0f0f0;
+      }
+
+      #display {
+        font-size: 48px;
+        font-weight: bold;
+        color: #333;
+        border: 2px solid #333;
+        padding: 20px;
+        border-radius: 10px;
+        background-color: #ffffff;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      }
+
+      button {
+        margin-top: 20px;
+        font-size: 16px;
+        padding: 10px 20px;
+        cursor: pointer;
+        border: none;
+        border-radius: 5px;
+        background-color: #4caf50;
+        color: white;
+      }
+
+      button:disabled {
+        background-color: #ccc;
+        cursor: not-allowed;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="display">Click "Next" to Start</div>
+    <button id="nextBtn">Next</button>
+
+    <script>
+      const numbers = [...Array(100).keys()].map((x) => x + 1); // Create numbers from 1 to 100
+
+      // Shuffle the numbers array using Fisher-Yates
+      for (let i = numbers.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [numbers[i], numbers[j]] = [numbers[j], numbers[i]];
+      }
+
+      let index = 0; // Track the current number
+      const display = document.getElementById("display");
+      const nextBtn = document.getElementById("nextBtn");
+
+      // Display the next number on button click
+      nextBtn.addEventListener("click", () => {
+        if (index < numbers.length) {
+          display.textContent = numbers[index]; // Show the current number
+          index++; // Move to the next number
+        }
+        if (index === numbers.length) {
+          nextBtn.disabled = true; // Disable the button when done
+          display.textContent = "All numbers displayed!";
+        }
+      });
+    </script>
+  </body>
+</html>

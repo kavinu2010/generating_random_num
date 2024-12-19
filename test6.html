@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sequential Color Display</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+        background-color: #f0f0f0;
+      }
+
+      #box {
+        width: 200px;
+        height: 200px;
+        border: 2px solid #333;
+        border-radius: 10px;
+        background-color: #ffffff;
+        transition: background-color 0.2s ease; /* Smooth transition */
+      }
+    </style>
+  </head>
+  <body>
+    <div id="box"></div>
+
+    <script>
+      // Create an array of numbers from 1 to 100 (for 100 colors)
+      const numbers = [...Array(1000).keys()].map((x) => x + 1);
+
+      // Shuffle the numbers randomly using Fisher-Yates algorithm
+      for (let i = numbers.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [numbers[i], numbers[j]] = [numbers[j], numbers[i]];
+      }
+
+      // Generate a random background color
+      function getRandomColor() {
+        const letters = "0123456789ABCDEF";
+        let color = "#";
+        for (let i = 0; i < 6; i++) {
+          color += letters[Math.floor(Math.random() * 16)];
+        }
+        return color;
+      }
+
+      const box = document.getElementById("box");
+
+      // Sequentially display colors with a millisecond delay
+      let index = 0;
+
+      function displayNextColor() {
+        if (index < numbers.length) {
+          box.style.backgroundColor = getRandomColor(); // Assign random color to the box
+          index++;
+          setTimeout(displayNextColor, 500); // Change color every 50ms
+        } else {
+          console.log("All colors displayed!"); // Log message when done
+        }
+      }
+
+      // Start displaying colors
+      displayNextColor();
+    </script>
+  </body>
+</html>
