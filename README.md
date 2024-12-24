@@ -4,7 +4,7 @@
 
 This project includes a simple JavaScript function to generate a random integer between 1 and 100. The function leverages JavaScript's Math.random() and Math.floor() methods to ensure the output is both random and uniformly distributed.
 
-How It Works
+<h3>How It Works</h3>
 
 Math.random(): Generates a random decimal number between 0 (inclusive) and 1 (exclusive).
 
@@ -31,6 +31,12 @@ This function can be applied in a variety of use cases, including but not limite
 Probability simulations.
 
 Simple games or dice-like mechanics.
+
+<h3>Requirements</h3>
+
+JavaScript Environment: Any environment that supports JavaScript, such as Node.js or modern web browsers.
+
+
 
 Generating test data for applications.
 
